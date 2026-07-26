@@ -1,6 +1,33 @@
 # Eco-Loop Building Agents — Adversarial Setpoint Court
 
-Closed-loop EnergyPlus + LLM control PoC. See [ARCHITECTURE.md](ARCHITECTURE.md) for the system design.
+Closed-loop EnergyPlus + LLM control PoC. See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system design.
+
+## What This Is
+
+Buildings waste energy because their HVAC schedules are static — set once, never adapted to what's actually happening in the building or on the grid. This project makes that schedule adaptive by putting two opposing AI agents in charge of it, refereed by deterministic logic:
+
+- **Energy Advocate** (LLM) argues for setpoints that cut electricity use, especially during high grid-carbon-intensity hours.
+- **Comfort Advocate** (LLM) argues for setpoints that keep occupants thermally comfortable (PMV close to neutral).
+- **Judge** (plain Python, no LLM) picks the winner using the *actual measured* thermal comfort from the last EnergyPlus simulation — not a prediction, not a vote. If comfort is already at risk, comfort wins outright, no negotiation.
+
+The winning setpoints get written back into the live EnergyPlus model, which is re-simulated, and the loop repeats. If a bad patch crashes the simulation, the system feeds the exact error back to an LLM repair agent, which proposes a fix and retries — a real self-correction loop, not just a try/except that gives up. Once a given state has been debated once, a precedent cache lets future iterations skip the LLM entirely and reuse the ruling — cutting API calls without cutting quality.
+
+**Result on a real 3-day run** (5-zone commercial building, Chicago weather): **10.1% less total energy** than the unmodified baseline schedule, with the judge visibly protecting comfort at multiple points in the transcript rather than letting energy savings run unchecked.
+
+## How It Works
+
+```
+EnergyPlus (physics ground truth)
+   → zone temp / humidity / energy use / PMV
+        → Energy Advocate (LLM) proposes setpoints  ─┐
+        → Comfort Advocate (LLM) proposes setpoints ─┴→ Judge (deterministic)
+                                                            → winning setpoints
+                                                                 → patched into EnergyPlus
+                                                                 → re-simulate
+                                                                 → repeat
+```
+
+Full architecture, prompt design, and latency-management details are in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Prerequisites
 
