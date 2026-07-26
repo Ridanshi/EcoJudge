@@ -1,6 +1,6 @@
 # Eco-Loop Building Agents — Adversarial Setpoint Court
 
-Closed-loop EnergyPlus + LLM control PoC. See [ARCHITECTURE.md](ARCHITECTURE.md) for the full system design, or watch the [3-minute demo video](demo/demo_video.mp4).
+Watch the [3-minute demo video](demo/demo_video.mp4).
 
 ## What This Is
 
