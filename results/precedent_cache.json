@@ -1,0 +1,38 @@
+{
+  "night|temp=20|pmv=-1.0|carbon=low": {
+    "heating_setpoint_c": 19.0,
+    "cooling_setpoint_c": 27.0,
+    "winner": "comfort",
+    "reason": "observed PMV -1.23 outside +/-0.5 bound; comfort proposal wins on safety override"
+  },
+  "morning|temp=23|pmv=-0.5|carbon=medium": {
+    "heating_setpoint_c": 20.5,
+    "cooling_setpoint_c": 24.5,
+    "winner": "comfort",
+    "reason": "observed PMV -0.55 outside +/-0.5 bound; comfort proposal wins on safety override"
+  },
+  "afternoon|temp=25|pmv=0.0|carbon=medium": {
+    "heating_setpoint_c": 19.0,
+    "cooling_setpoint_c": 26.0,
+    "winner": "energy",
+    "reason": "comfort currently satisfied (PMV 0.09); energy proposal accepted within 3.0C change cap"
+  },
+  "evening|temp=22|pmv=-0.5|carbon=medium": {
+    "heating_setpoint_c": 20.0,
+    "cooling_setpoint_c": 26.0,
+    "winner": "comfort",
+    "reason": "observed PMV -0.66 outside +/-0.5 bound; comfort proposal wins on safety override"
+  },
+  "afternoon|temp=26|pmv=0.5|carbon=medium": {
+    "heating_setpoint_c": 18.0,
+    "cooling_setpoint_c": 27.0,
+    "winner": "energy",
+    "reason": "comfort currently satisfied (PMV 0.34); energy proposal accepted within 3.0C change cap"
+  },
+  "evening|temp=23|pmv=-0.5|carbon=medium": {
+    "heating_setpoint_c": 20.5,
+    "cooling_setpoint_c": 25.5,
+    "winner": "comfort",
+    "reason": "observed PMV -0.56 outside +/-0.5 bound; comfort proposal wins on safety override"
+  }
+}

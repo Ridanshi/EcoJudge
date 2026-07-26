@@ -1,0 +1,12 @@
+eppy==0.5.69
+# Pinned to 2.10.0 (pre-numba release). Newer versions (3.x/4.x) crash on import here:
+# numba's disk cache write fails inside the MS Store-packaged Python's site-packages path
+# (FileNotFoundError writing .nbi cache files). Verified 2026-07-25. Do not bump without
+# re-testing `python -c "from pythermalcomfort.models import pmv_ppd"` first.
+pythermalcomfort==2.10.0
+openai>=1.109.0
+python-dotenv>=1.2.0
+mcp>=1.28.0
+pandas>=2.3.0
+matplotlib>=3.10.0
+pytest>=8.0.0
